@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
 import {Component, View} from 'angular2/angular2';
+import {RouteParams} from 'angular2/router';
 
 @Component({
     selector: 'project-details'
@@ -9,7 +10,8 @@ import {Component, View} from 'angular2/angular2';
     directives: []
 })
 export class ProjectDetails {
-    constructor() {
-
+    constructor(params: RouteParams) {
+        var projectId: string = params.get('projectId');
+        console.log("projectId", projectId);
     }
 }
