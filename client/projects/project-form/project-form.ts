@@ -4,6 +4,7 @@ import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from 'angular2/a
 import {Projects} from '../../../collections/projects';
 import {Router} from 'angular2/router';
 
+
 @Component({
     selector: 'project-form'
 })
@@ -29,7 +30,8 @@ export class ProjectForm {
                 name: project.name,
                 description: project.description,
                 img: project.img,
-                children: 0
+                children: 0,
+                owner: Meteor.userId()
             });
             this.router.navigate(['/ProjectList']);
         } else{

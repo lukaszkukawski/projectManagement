@@ -3,5 +3,6 @@ declare type Project = {
     name: string,
     description?: string,
     img: string,
-    children: number
+    children: number,
+    owner: string
 }

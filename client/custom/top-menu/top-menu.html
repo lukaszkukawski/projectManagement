@@ -38,8 +38,8 @@
       </form>
       -->
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" [router-link]="['/ProjectNew']">Add project</a></li>
-        <li class="dropdown">
+        <li *ng-if="user"><a href="#" [router-link]="['/ProjectNew']">Add project</a></li>
+        <li class="dropdown" *ng-if="user">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Settings</a></li>
@@ -47,6 +47,7 @@
             <li><a href="#">Logout</a></li>
           </ul>
         </li>
+        <li><accounts-ui></accounts-ui></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

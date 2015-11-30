@@ -2,3 +2,18 @@
 /// <reference path="../typings-custom/project.d.ts" />
 
 export var Projects = new Mongo.Collection<Project>('projects');
+
+Projects.allow({
+    insert: function(project: Object) {
+        var user = Meteor.user();
+        return !!user;
+    },
+    update: function(project: Object, fields, modifier) {
+        var user = Meteor.user();
+        return !!user;
+    },
+    remove: function(project: Object) {
+        var user = Meteor.user();
+        return !!user;
+    }
+});

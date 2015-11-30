@@ -1,7 +1,6 @@
 
 /// <reference path="angular2.d.ts" />
 /// <reference path="meteor/meteor.d.ts" />
-/// <reference path="bootstrap/bootstrap.d.ts" />
 
 declare module ngMeteor {
   class MeteorComponent {
