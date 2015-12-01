@@ -3,14 +3,14 @@ import {Component, View} from 'angular2/angular2';
 import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from 'angular2/angular2';
 import {Projects} from '../../../collections/projects';
 import {Router} from 'angular2/router';
-
+import {TopMenu} from '../../custom/top-menu/top-menu';
 
 @Component({
     selector: 'project-form'
 })
 @View({
-    templateUrl: 'client/projects/project-form/project-form.html',
-    directives: [FORM_DIRECTIVES]
+    templateUrl: 'client/projects/form/project-form.html',
+    directives: [FORM_DIRECTIVES, TopMenu]
 })
 export class ProjectForm {
     projectForm: ControlGroup;
@@ -33,7 +33,7 @@ export class ProjectForm {
                 children: 0,
                 owner: Meteor.userId()
             });
-            this.router.navigate(['/ProjectList']);
+            this.router.navigate(['/ProjectDetails']);
         } else{
 
         }
