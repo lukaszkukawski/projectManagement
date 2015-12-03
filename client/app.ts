@@ -2,7 +2,7 @@
 import {Component, View, bootstrap, provide} from 'angular2/angular2';
 import {ProjectList} from './projects/list/project-list';
 import {ProjectDetails} from './projects/details/project-details';
-import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, APP_BASE_HREF} from 'angular2/router';
+import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, APP_BASE_HREF, HashLocationStrategy, LocationStrategy} from 'angular2/router';
 import {ProjectForm} from './projects/form/project-form';
 import {SubjectDetails} from './subjects/details/subject-details';
 import {SubjectForm} from './subjects/form/subject-form';
@@ -27,4 +27,4 @@ class Management {
     }
 }
 
-bootstrap(Management, [ROUTER_PROVIDERS, provide(APP_BASE_HREF, { useValue: '/' })]);
+bootstrap(Management, [ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: HashLocationStrategy })]);

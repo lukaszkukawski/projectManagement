@@ -33,7 +33,7 @@ export class ProjectForm {
                 children: 0,
                 owner: Meteor.userId()
             });
-            this.router.navigate(['/ProjectDetails']);
+            this.router.navigate(['/ProjectList']);
         } else{
 
         }

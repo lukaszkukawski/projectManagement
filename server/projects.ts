@@ -2,10 +2,9 @@
  
 import {Projects} from '../collections/projects';
 
-Meteor.publish('projects', function() {
-    return Projects.find({
+function buildQuery(projectId?: string): Object {
+    var isAvailable = {
         $or: [
-            { public: true },
             {
                 $and: [
                     { owner: this.userId },
@@ -13,5 +12,19 @@ Meteor.publish('projects', function() {
                 ]
             }
         ]
-    });
+    };
+
+    if (projectId) {
+        return { $and: [{ _id: projectId }, isAvailable] };
+    }
+
+    return isAvailable;
+}
+
+Meteor.publish('projects', function() {
+    return Projects.find(buildQuery.call(this));
+});
+
+Meteor.publish('project', function(projectId) {
+    return Projects.find(buildQuery.call(this, projectId));
 });

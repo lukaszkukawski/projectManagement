@@ -14,6 +14,7 @@ import {TopMenu} from '../../custom/top-menu/top-menu';
 })
 export class ProjectList extends MeteorComponent {
     projects: Array<Object> = [];
+    project: Project;
     constructor(zone: NgZone) {
         super();
         console.log("Project list START");

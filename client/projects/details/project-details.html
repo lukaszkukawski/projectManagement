@@ -2,8 +2,13 @@
     <top-menu></top-menu>
 </header>
 <div class='container'>
-    <h2>{{project.name}}</h2>
-    <h5>{{project.description}}</h5>
+<div class="panel panel-default">
+  <div class="panel-heading">{{project.name</div>
+  <div class="panel-body">
+  {{project}}
+    {{project.name}}
+  </div>
+</div>
 
       <ul class="list-group">
         <li *ng-for="#subject of subjects" class="list-group-item" [router-link]="['/SubjectDetails', {projectId : subject.projectId, subjectId: subject._id}]">
