@@ -1,0 +1,6 @@
+<ul class="list-group" *ng-if="project">
+    <li *ng-for="#member of project.members" class="list-group-item">
+      {{member.email}}
+      <p>{{member.status}}</p>
+    </li>
+</ul>

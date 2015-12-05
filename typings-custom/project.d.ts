@@ -4,5 +4,6 @@ declare type Project = {
     description?: string,
     img: string,
     children: number,
-    owner: string
+    owner: string,
+    members: Member[];
 }

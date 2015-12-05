@@ -31,7 +31,8 @@ export class ProjectForm {
                 description: project.description,
                 img: project.img,
                 children: 0,
-                owner: Meteor.userId()
+                owner: Meteor.userId(),
+                members: []
             });
             this.router.navigate(['/ProjectList']);
         } else{

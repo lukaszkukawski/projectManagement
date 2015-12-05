@@ -2,11 +2,18 @@
     <top-menu></top-menu>
 </header>
 <div class='container'>
-<div class="panel panel-default">
-  <div class="panel-heading">{{project.name</div>
+<div class="panel panel-default" *ng-if="project">
+  <div class="panel-heading">{{project.name}}</div>
   <div class="panel-body">
-  {{project}}
-    {{project.name}}
+    <div class="col-xs-6">{{project.description}}</div>
+    <div class="col-xs-6">
+      Members:
+      <members-list></members-list>
+      Add another:
+      <member-form></member-form>
+    </div>
+  
+    <!--{{project.name}}-->
   </div>
 </div>
 

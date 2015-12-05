@@ -10,6 +10,12 @@ function buildQuery(projectId?: string): Object {
                     { owner: this.userId },
                     { owner: { $exists: true } }
                 ]
+            },
+            {
+                $and: [
+                    { members: this.userId },
+                    { members: { $exists: true } }
+                ]
             }
         ]
     };
