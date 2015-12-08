@@ -4,5 +4,6 @@ declare type Subject = {
     description: string,
     attachments?: string[],
     projectId: string,
+    response: number,
     owner: string
 }

@@ -1,0 +1,6 @@
+<ul class="list-group">
+    <li *ng-for="#subject of subjects" class="list-group-item" [router-link]="['/SubjectDetails', {projectId : subject.projectId, subjectId: subject._id}]">
+      {{subject.title}}
+      <p>{{subject.description}}</p>
+    </li>
+</ul>

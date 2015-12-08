@@ -13,13 +13,13 @@ import {TopMenu} from '../../custom/top-menu/top-menu';
     directives: [NgFor, RouterLink, TopMenu]
 })
 export class ProjectList extends MeteorComponent {
-    projects: Array<Object> = [];
+    projects: Mongo.Cursor<Project>;
     project: Project;
     constructor(zone: NgZone) {
         super();
         console.log("Project list START");
         this.subscribe('projects', () => {
-            this.projects = Projects.find().fetch();
+            this.projects = Projects.find();
         }, true);
 
     }

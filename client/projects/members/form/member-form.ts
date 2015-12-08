@@ -12,10 +12,11 @@ import {MeteorComponent} from 'angular2-meteor';
     templateUrl: 'client/projects/members/form/member-form.html',
     directives: [FORM_DIRECTIVES]
 })
-export class MemberForm{
+export class MemberForm extends MeteorComponent {
     memberForm: ControlGroup;
     projectId: string;
     constructor(params: RouteParams) {
+        super();
         this.projectId = params.get('projectId');
         var fb = new FormBuilder();
         this.memberForm = fb.group({
@@ -24,7 +25,7 @@ export class MemberForm{
     }
     addMember(form) {
         if (this.memberForm.valid){
-            console.debug("Zapisany member");
+            console.debug("added member");
             Projects.update(this.projectId, {
                 $push: {
                     members : {
@@ -35,7 +36,7 @@ export class MemberForm{
             });
             (<Control>this.memberForm.controls['email']).updateValue('');
         } else {
-            console.debug("Blad emaila");
+            console.debug("error emaila");
         }
     }
 }

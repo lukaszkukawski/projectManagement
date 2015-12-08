@@ -17,6 +17,10 @@
   </div>
 </div>
 
+<div class="row">
+<button class="col-xs-6 btn btn-info" [router-link]="['/SubjectForm', {projectId: projectId}]">Add new Task</button>
+
+</div>
       <ul class="list-group">
         <li *ng-for="#subject of subjects" class="list-group-item" [router-link]="['/SubjectDetails', {projectId : subject.projectId, subjectId: subject._id}]">
           {{subject.title}}

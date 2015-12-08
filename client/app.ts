@@ -1,11 +1,12 @@
 /// <reference path="../typings/angular2-meteor.d.ts" />
-import {Component, View, bootstrap, provide} from 'angular2/angular2';
+import {Component, View, provide} from 'angular2/angular2';
+import {bootstrap} from 'angular2-meteor';
 import {ProjectList} from './projects/list/project-list';
 import {ProjectDetails} from './projects/details/project-details';
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, APP_BASE_HREF, HashLocationStrategy, LocationStrategy} from 'angular2/router';
 import {ProjectForm} from './projects/form/project-form';
-import {SubjectDetails} from './subjects/details/subject-details';
-import {SubjectForm} from './subjects/form/subject-form';
+import {SubjectDetails} from './projects/subjects/details/subject-details';
+import {SubjectForm} from './projects/subjects/form/subject-form';
 
 @Component({
     selector: 'app'
