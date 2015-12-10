@@ -20,6 +20,7 @@ export class ProjectList extends MeteorComponent {
         console.log("Project list START");
         this.subscribe('projects', () => {
             this.projects = Projects.find();
+            console.log('this.projects', this.projects);
         }, true);
 
     }

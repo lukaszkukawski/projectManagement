@@ -6,15 +6,14 @@ import {Projects} from '../../../collections/projects';
 import {MeteorComponent} from 'angular2-meteor';
 import {MemberForm} from '../members/form/member-form';
 import {MembersList} from '../members/list/members-list';
-import {SubjectForm} from '../subjects/form/subject-form';
-import {SubjectList} from '../subjects/list/subject-list'
+import {SubjectList} from '../subjects/list/subject-list';
 
 @Component({
     selector: 'project-details'
 })
 @View({
     templateUrl: 'client/projects/details/project-details.html',
-    directives: [TopMenu, RouterLink, NgIf, MemberForm, MembersList, SubjectForm, SubjectList]
+    directives: [TopMenu, RouterLink, NgIf, MemberForm, MembersList, SubjectList]
 })
 export class ProjectDetails extends MeteorComponent{
     project: Project;

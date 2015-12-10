@@ -2,29 +2,25 @@
     <top-menu></top-menu>
 </header>
 <div class='container'>
-<div class="panel panel-default" *ng-if="project">
-  <div class="panel-heading">{{project.name}}</div>
-  <div class="panel-body">
-    <div class="col-xs-6">{{project.description}}</div>
-    <div class="col-xs-6">
-      Members:
-      <members-list></members-list>
-      Add another:
-      <member-form></member-form>
+  <div class="panel panel-default" *ng-if="project">
+    <div class="panel-heading">{{project.name}}</div>
+    <div class="panel-body">
+      <div class="col-xs-6">{{project.description}}</div>
+      <div class="col-xs-6">
+        Members:
+        <members-list></members-list>
+        Add another:
+        <member-form></member-form>
+      </div>
+    
+      <!--{{project.name}}-->
     </div>
-  
-    <!--{{project.name}}-->
   </div>
-</div>
 
-<div class="row">
-<button class="col-xs-6 btn btn-info" [router-link]="['/SubjectForm', {projectId: projectId}]">Add new Task</button>
+  <div class="row">
+  <button class="col-xs-6 btn btn-info" [router-link]="['/SubjectForm', {projectId: projectId}]">Add new Task</button>
 
-</div>
-      <ul class="list-group">
-        <li *ng-for="#subject of subjects" class="list-group-item" [router-link]="['/SubjectDetails', {projectId : subject.projectId, subjectId: subject._id}]">
-          {{subject.title}}
-          <p>{{subject.description}}</p>
-        </li>
-      </ul>
+  </div>
+
+  <subject-list></subject-list>
 </div>

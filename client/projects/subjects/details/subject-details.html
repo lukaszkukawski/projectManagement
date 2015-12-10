@@ -2,7 +2,10 @@
     <top-menu></top-menu>
 </header>
 <div class='container' *ng-if="subject">
-    <h2>{{subject.title}}</h2>
-    <h5>{{subject.description}}</h5>
-
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h2>{{subject.title}}</h2>
+        <h5>{{subject.description}}</h5>
+      </div>
+    </div>
 </div>

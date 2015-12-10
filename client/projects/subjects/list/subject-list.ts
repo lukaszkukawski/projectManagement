@@ -8,16 +8,18 @@ import {Subjects} from '../../../../collections/subjects';
 })
 @View({
     templateUrl: 'client/projects/subjects/list/subject-list.html',
-    directives: [NgFor]
+    directives: [NgFor, RouterLink]
 })
 export class SubjectList extends MeteorComponent{
-    subject: Mongo.Cursor<Subject>;
+    subjects: Mongo.Cursor<Subject>;
     projectId: string;
     constructor(params: RouteParams) {
         super();
+        console.log('subject-list Start');
         this.projectId = params.get('projectId');
-        this.subscribe('projects', () => {
-            this.subject = Subjects.find(this.projectId);
+        this.subscribe('subjects', this.projectId, () => {
+            this.subjects = Subjects.find();
+            console.log('this.subjects', this.subjects);
         }, true);
     }
 }

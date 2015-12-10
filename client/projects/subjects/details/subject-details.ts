@@ -2,19 +2,28 @@
 import {Component, View, NgIf} from 'angular2/angular2';
 import {RouteParams} from 'angular2/router';
 import {Subjects} from '../../../../collections/subjects';
+import {MeteorComponent} from 'angular2-meteor';
+import {TopMenu} from '../../../custom/top-menu/top-menu';
 
 @Component({
     selector: 'subject-details'
 })
 @View({
-    templateUrl: 'client/subjects/details/subject-details.html',
-    directives: [NgIf]
+    templateUrl: 'client/projects/subjects/details/subject-details.html',
+    directives: [NgIf, TopMenu]
 })
-export class SubjectDetails {
+export class SubjectDetails extends MeteorComponent {
     subject: Subject;
+    projectId: string;
+    subjectId: string;
     constructor(params: RouteParams) {
-        var projectId: string = params.get('projectId');
-        var subjectId: string = params.get('subjectId');
-        this.subject = Subjects.findOne(subjectId);
+        super();
+        console.log('SUbejct details START');
+        this.projectId = params.get('projectId');
+        this.subjectId = params.get('subjectId');
+        this.subscribe('subjects', this.projectId, () => {
+            this.subject = Subjects.findOne(this.subjectId);
+            console.log('this.subject', this.subject);
+        }, true);
     }
 }
