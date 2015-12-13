@@ -3,14 +3,13 @@ import {Component, View} from 'angular2/angular2';
 import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from 'angular2/angular2';
 import {Projects} from '../../../collections/projects';
 import {Router} from 'angular2/router';
-import {TopMenu} from '../../custom/top-menu/top-menu';
 
 @Component({
     selector: 'project-form'
 })
 @View({
     templateUrl: 'client/projects/form/project-form.html',
-    directives: [FORM_DIRECTIVES, TopMenu]
+    directives: [FORM_DIRECTIVES]
 })
 export class ProjectForm {
     projectForm: ControlGroup;

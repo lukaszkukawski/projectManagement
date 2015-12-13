@@ -1,11 +1,16 @@
-<header>
-    <top-menu></top-menu>
-</header>
-<div class='container' *ng-if="subject">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h2>{{subject.title}}</h2>
-        <h5>{{subject.description}}</h5>
-      </div>
-    </div>
+
+<div class="panel panel-default" *ng-if="subject">
+  <div class="panel-body">
+    <h2>{{subject.title}}</h2>
+    <h5>{{subject.description}}</h5>
+  </div>
 </div>
+
+<div class="panel panel-default clearfix" [ng-switch]="currentTemplate">
+  <template [ng-switch-when]="'newAnswer'"><answer-form (complete)="onCompletedAddedAnswer($event)"></answer-form></template>
+  <template ng-switch-default>
+    <button (click)="showFormAnswer()" class="col-xs-12 btn btn-info">Add new Answer</button>
+  </template>
+</div>
+
+<answer-list></answer-list>

@@ -1,6 +1,3 @@
-<header>
-    <top-menu></top-menu>
-</header>
 <div>
   <ul class="list-group">
     <li *ng-for="#project of projects" class="list-group-item" [router-link]="['/ProjectDetails', {projectId : project._id}]">

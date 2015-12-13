@@ -1,5 +1,5 @@
 /// <reference path="../../../../typings/angular2-meteor.d.ts" />
-import {Component, View} from 'angular2/angular2';
+import {Component, View, Input, Output, EventEmitter, CORE_DIRECTIVES} from 'angular2/angular2';
 import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from 'angular2/angular2';
 import {RouteParams, Router} from 'angular2/router';
 import {Subjects} from '../../../../collections/subjects';
@@ -9,9 +9,12 @@ import {Projects} from '../../../../collections/projects';
     selector: 'subject-form'
 })
 @View({
-    templateUrl: 'client/projects/subjects/form/subject-form.html'
+    templateUrl: 'client/projects/subjects/form/subject-form.html',
+    directives: [CORE_DIRECTIVES]
 })
 export class SubjectForm {
+    @Input() template;
+    @Output() complete = new EventEmitter();
     subjectForm: ControlGroup;
     projectId: string;
     constructor(fb: FormBuilder, params: RouteParams, private router: Router) {
@@ -37,10 +40,15 @@ export class SubjectForm {
                     children: 1
                 }
             });
-
-            this.router.navigate(['/ProjectDetails', { projectId: this.projectId }]);
+            console.log('EventEmitter change');
+            this.complete.next("");
+            //this.router.navigate(['/ProjectDetails', { projectId: this.projectId }]);
         } else {
-            console.log('error with subject form');
+            console.log('error with answer form');
         }
+    }
+
+    cancelAdd(){
+        this.complete.next("");
     }
 }

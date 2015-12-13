@@ -1,26 +1,31 @@
-<header>
-    <top-menu></top-menu>
-</header>
-<div class='container'>
-  <div class="panel panel-default" *ng-if="project">
-    <div class="panel-heading">{{project.name}}</div>
-    <div class="panel-body">
-      <div class="col-xs-6">{{project.description}}</div>
-      <div class="col-xs-6">
-        Members:
-        <members-list></members-list>
-        Add another:
-        <member-form></member-form>
-      </div>
-    
-      <!--{{project.name}}-->
+<div class="panel panel-default" *ng-if="project">
+  <div class="panel-heading">{{project.name}}</div>
+  <div class="panel-body">
+    <div class="col-xs-6">{{project.description}}</div>
+    <div class="col-xs-6">
+      Members:
+      <members-list></members-list>
+      Add another:
+      <member-form></member-form>
     </div>
-  </div>
-
-  <div class="row">
-  <button class="col-xs-6 btn btn-info" [router-link]="['/SubjectForm', {projectId: projectId}]">Add new Task</button>
-
-  </div>
-
-  <subject-list></subject-list>
+  
+    <!--{{project.name}}-->
 </div>
+</div>
+
+
+
+<!--
+<button class="col-xs-6 btn btn-info" [router-link]="['/SubjectForm', {projectId: projectId}]">Add new Task</button>
+-->
+
+<div class="panel panel-default clearfix" [ng-switch]="currentTemplate">
+    <template [ng-switch-when]="'newTask'"><subject-form (complete)="onCompletedAddedSubject($event)"></subject-form></template>
+    <template ng-switch-default>
+      <button (click)="showFormSubject()" class="col-xs-12 btn btn-info">Add new Task</button>
+    </template>
+</div>
+
+
+
+<subject-list></subject-list>

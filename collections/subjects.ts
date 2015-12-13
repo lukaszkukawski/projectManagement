@@ -4,15 +4,15 @@
 export var Subjects = new Mongo.Collection<Subject>('subjects');
 
 Subjects.allow({
-    insert: function(project: Object) {
+    insert: function(subject: Object) {
         var user = Meteor.user();
         return !!user;
     },
-    update: function(project: Object, fields, modifier) {
+    update: function(subject: Object, fields, modifier) {
         var user = Meteor.user();
         return !!user;
     },
-    remove: function(project: Object) {
+    remove: function(subject: Object) {
         var user = Meteor.user();
         return !!user;
     }

@@ -7,20 +7,21 @@ import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, APP_BASE_HREF, HashLoc
 import {ProjectForm} from './projects/form/project-form';
 import {SubjectDetails} from './projects/subjects/details/subject-details';
 import {SubjectForm} from './projects/subjects/form/subject-form';
+import {TopMenu} from './custom/top-menu/top-menu';
 
 @Component({
     selector: 'app'
 })
 @View({
     templateUrl: 'client/app.html',
-    directives: [ROUTER_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES, TopMenu]
 })
 @RouteConfig([
     { path: '/', as: 'ProjectList', component: ProjectList },
     { path: '/project/:projectId', as: 'ProjectDetails', component: ProjectDetails },
     { path: '/project/new', as: "ProjectNew", component: ProjectForm},
     { path: '/project/:projectId/subject/:subjectId', as: 'SubjectDetails', component: SubjectDetails },
-    { path: '/project/:projectId/subject/new', as: 'SubjectForm', component: SubjectForm }
+    { path: '/subject/new', as: 'SubjectForm', component: SubjectForm }
 ])
 class Management {
     constructor(){

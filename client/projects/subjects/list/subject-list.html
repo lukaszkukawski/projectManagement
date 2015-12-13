@@ -1,6 +1,11 @@
 <ul class="list-group">
-    <li *ng-for="#subject of subjects" class="list-group-item" [router-link]="['/SubjectDetails', {projectId : subject.projectId, subjectId: subject._id}]">
-      {{subject.title}}
-      <p>Response {{subject.response}}</p>
+    <li *ng-for="#subject of subjects" class="list-group-item clearfix" >
+        <div class="col-xs-8" [router-link]="['/SubjectDetails', {projectId : subject.projectId, subjectId: subject._id}]">
+          {{subject.title}}
+          <p>Response {{subject.response}}</p>
+      </div>
+      <div class="col-xs-4">
+          <button class="btn btn-danger" (click)="removeSubject(subject)"><i class="glyphicon glyphicon-remove"></i></button>
+      </div>
     </li>
 </ul>
