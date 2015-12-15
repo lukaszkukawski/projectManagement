@@ -34,3 +34,9 @@ Meteor.publish('projects', function() {
 Meteor.publish('project', function(projectId) {
     return Projects.find(buildQuery.call(this, projectId));
 });
+
+Meteor.methods({
+    projectInsert: function(project) {
+        return Projects.insert(project);
+    }
+});

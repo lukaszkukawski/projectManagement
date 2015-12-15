@@ -25,7 +25,7 @@ export class ProjectForm {
 
     addProject(project) {
         if (this.projectForm.valid) {
-            Projects.insert({
+            Meteor.call('projectInsert', {
                 name: project.name,
                 description: project.description,
                 img: project.img,

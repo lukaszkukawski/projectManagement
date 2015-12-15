@@ -28,18 +28,14 @@ export class SubjectForm {
 
     addSubject(subject) {
         if (this.subjectForm.valid) {
-            Subjects.insert({
+            var _id = Meteor.call('insertSubject', {
                 title: subject.title,
                 description: subject.description,
                 owner: Meteor.userId(),
                 projectId: this.projectId,
                 response: 0
             });
-            Projects.update(this.projectId, {
-                $inc: { 
-                    children: 1
-                }
-            });
+            Meteor.call('projectIncChildren', this.projectId);
             console.log('EventEmitter change');
             this.complete.next("");
             //this.router.navigate(['/ProjectDetails', { projectId: this.projectId }]);

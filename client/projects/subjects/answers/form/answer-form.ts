@@ -28,17 +28,13 @@ export class AnswerForm {
 
     addAnswer(answer) {
         if (this.answerForm.valid) {
-            Answers.insert({
+            Meteor.call('answerInsert', {
                 description: answer.description,
                 type: 1,
                 subjectId: this.subjectId,
                 owner: Meteor.userId()
             });
-            Subjects.update(this.subjectId, {
-                $inc: {
-                    response: 1
-                }
-            });
+            Meteor.call('subjectIncResponse', this.subjectId);
             console.log('EventEmitter change');
             this.complete.next("");
             //this.router.navigate(['/ProjectDetails', { projectId: this.projectId }]);

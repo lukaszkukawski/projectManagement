@@ -17,3 +17,16 @@ Subjects.allow({
         return !!user;
     }
 });
+
+Meteor.methods({
+    insertSubject : function (subject) {
+        return Subjects.insert(subject);
+    },
+    subjectIncResponse: function(){
+        Subjects.update(this.subjectId, {
+            $inc: {
+                response: 1
+            }
+        });
+    }
+});

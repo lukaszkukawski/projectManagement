@@ -13,7 +13,7 @@ import {TopMenu} from './custom/top-menu/top-menu';
     selector: 'app'
 })
 @View({
-    templateUrl: 'client/app.html',
+        template: '<router-outlet></router-outlet>',
     directives: [ROUTER_DIRECTIVES, TopMenu]
 })
 @RouteConfig([

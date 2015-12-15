@@ -17,3 +17,12 @@ Projects.allow({
         return !!user;
     }
 });
+Meteor.methods({
+    projectIncChildren: function (projectId) {
+        Projects.update(projectId, {
+            $inc: {
+                children: 1
+            }
+        });
+    }
+});
