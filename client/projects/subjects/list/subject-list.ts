@@ -1,5 +1,6 @@
 /// <reference path="../../../../typings/angular2-meteor.d.ts" />
-import {Component, View, NgIf, NgFor} from 'angular2/angular2';
+import {Component, View} from 'angular2/core';
+import {NgIf, NgFor} from 'angular2/common';
 import {MeteorComponent} from 'angular2-meteor';
 import {RouteParams, RouterLink} from 'angular2/router';
 import {Subjects} from '../../../../collections/subjects';
@@ -24,6 +25,6 @@ export class SubjectList extends MeteorComponent{
     }
 
     removeSubject(subject: Subject) {
-        Subjects.remove(subject._id);
+        Meteor.call('deleteSubject', subject._id)
     }
 }

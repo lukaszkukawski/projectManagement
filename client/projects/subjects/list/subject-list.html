@@ -1,6 +1,6 @@
 <ul class="list-group">
-    <li *ng-for="#subject of subjects" class="list-group-item clearfix" >
-        <div class="col-xs-8" [router-link]="['/SubjectDetails', {projectId : subject.projectId, subjectId: subject._id}]">
+    <li *ngFor="#subject of subjects" class="list-group-item clearfix" >
+        <div class="col-xs-8" [routerLink]="['/SubjectDetails', {projectId : subject.projectId, subjectId: subject._id}]">
           {{subject.title}}
           <p>Response {{subject.response}}</p>
       </div>

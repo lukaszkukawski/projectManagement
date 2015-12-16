@@ -1,5 +1,6 @@
 /// <reference path="../../../../typings/angular2-meteor.d.ts" />
-import {Component, View, NgIf, NgZone} from 'angular2/angular2';
+import {Component, View, NgZone} from 'angular2/core';
+import {NgIf} from 'angular2/common';
 import {RouteParams} from 'angular2/router';
 import {Projects} from '../../../../collections/projects';
 import {MeteorComponent} from 'angular2-meteor';
@@ -27,7 +28,7 @@ export class MembersList extends MeteorComponent {
 
     removeMember (member: Member){
         console.log(member);
-        Projects.update(this.projectId, {
+        Meteor.call('projectUpdate', this.projectId, {
             $pull: {
                 members: member
             }

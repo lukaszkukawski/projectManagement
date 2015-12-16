@@ -1,6 +1,6 @@
 /// <reference path="../../../../../typings/angular2-meteor.d.ts" />
-import {Component, View, Input, Output, EventEmitter, CORE_DIRECTIVES} from 'angular2/angular2';
-import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from 'angular2/angular2';
+import {Component, View, Input, Output, EventEmitter} from 'angular2/core';
+import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from 'angular2/common';
 import {RouteParams, Router} from 'angular2/router';
 import {Subjects} from '../../../../../collections/subjects';
 import {Answers} from '../../../../../collections/answers';
@@ -10,7 +10,7 @@ import {Answers} from '../../../../../collections/answers';
 })
 @View({
     templateUrl: 'client/projects/subjects/answers/form/answer-form.html',
-    directives: [CORE_DIRECTIVES]
+    directives: [FORM_DIRECTIVES]
 })
 export class AnswerForm {
     @Output() complete = new EventEmitter();

@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
-import {Component, View} from 'angular2/angular2';
-import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from 'angular2/angular2';
+import {Component, View} from 'angular2/core';
+import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators, NgForm} from 'angular2/common';
 import {Projects} from '../../../collections/projects';
 import {Router} from 'angular2/router';
 

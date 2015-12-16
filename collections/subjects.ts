@@ -19,7 +19,7 @@ Subjects.allow({
 });
 
 Meteor.methods({
-    insertSubject : function (subject) {
+    insertSubject: function (subject) {
         return Subjects.insert(subject);
     },
     subjectIncResponse: function(){
@@ -28,5 +28,8 @@ Meteor.methods({
                 response: 1
             }
         });
+    },
+    deleteSubject: function (subjectId: string) {
+        Subjects.remove(subjectId);
     }
 });

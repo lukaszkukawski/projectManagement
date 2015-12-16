@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
-import {NgZone, Component, View, NgIf, NgSwitch, CORE_DIRECTIVES} from 'angular2/angular2';
+import {NgZone, Component, View} from 'angular2/core';
+import {NgIf, NgSwitch} from 'angular2/common';
 import {RouteParams, RouterLink} from 'angular2/router';
 import {Projects} from '../../../collections/projects';
 import {MeteorComponent} from 'angular2-meteor';
@@ -14,7 +15,7 @@ import {SubjectForm} from '../subjects/form/subject-form';
 })
 @View({
     templateUrl: 'client/projects/details/project-details.html',
-    directives: [RouterLink, NgIf, MemberForm, MembersList, SubjectList, NgSwitch, SubjectForm, CORE_DIRECTIVES]
+    directives: [RouterLink, NgIf, MemberForm, MembersList, SubjectList, NgSwitch, SubjectForm]
 })
 export class ProjectDetails extends MeteorComponent{
     project: Project;

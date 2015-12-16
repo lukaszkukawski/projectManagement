@@ -24,5 +24,8 @@ Meteor.methods({
                 children: 1
             }
         });
+    },
+    projectUpdate: function (projectId, updateObject) {
+        Projects.update(projectId, updateObject);
     }
 });

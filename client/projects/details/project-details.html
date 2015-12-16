@@ -1,4 +1,4 @@
-<div class="panel panel-default" *ng-if="project">
+<div class="panel panel-default" *ngIf="project">
   <div class="panel-heading">{{project.name}}</div>
   <div class="panel-body">
     <div class="col-xs-6">{{project.description}}</div>
@@ -19,9 +19,9 @@
 <button class="col-xs-6 btn btn-info" [router-link]="['/SubjectForm', {projectId: projectId}]">Add new Task</button>
 -->
 
-<div class="panel panel-default clearfix" [ng-switch]="currentTemplate">
-    <template [ng-switch-when]="'newTask'"><subject-form (complete)="onCompletedAddedSubject($event)"></subject-form></template>
-    <template ng-switch-default>
+<div class="panel panel-default clearfix" [ngSwitch]="currentTemplate">
+    <template [ngSwitchWhen]="'newTask'"><subject-form (complete)="onCompletedAddedSubject($event)"></subject-form></template>
+    <template ngSwitchDefault>
       <button (click)="showFormSubject()" class="col-xs-12 btn btn-info">Add new Task</button>
     </template>
 </div>

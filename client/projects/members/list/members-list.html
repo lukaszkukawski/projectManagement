@@ -1,5 +1,5 @@
-<ul class="list-group" *ng-if="project">
-    <li *ng-for="#member of project.members" class="list-group-item">
+<ul class="list-group" *ngIf="project">
+    <li *ngFor="#member of project.members" class="list-group-item">
       {{member.email}}
       <p>{{member.status}}</p>
       <button (click)="removeMember(member)" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>

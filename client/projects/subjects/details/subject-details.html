@@ -1,14 +1,14 @@
 
-<div class="panel panel-default" *ng-if="subject">
+<div class="panel panel-default" *ngIf="subject">
   <div class="panel-body">
     <h2>{{subject.title}}</h2>
     <h5>{{subject.description}}</h5>
   </div>
 </div>
 
-<div class="panel panel-default clearfix" [ng-switch]="currentTemplate">
-  <template [ng-switch-when]="'newAnswer'"><answer-form (complete)="onCompletedAddedAnswer($event)"></answer-form></template>
-  <template ng-switch-default>
+<div class="panel panel-default clearfix" [ngSwitch]="currentTemplate">
+  <template [ngSwitchWhen]="'newAnswer'"><answer-form (complete)="onCompletedAddedAnswer($event)"></answer-form></template>
+  <template ngSwitchDefault>
     <button (click)="showFormAnswer()" class="col-xs-12 btn btn-info">Add new Answer</button>
   </template>
 </div>

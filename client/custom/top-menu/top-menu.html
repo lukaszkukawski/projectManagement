@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#" [router-link]="['/ProjectList']">Projects list</a>
+      <a class="navbar-brand" href="#" [routerLink]="['/ProjectList']">Projects list</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -38,8 +38,9 @@
       </form>
       -->
       <ul class="nav navbar-nav navbar-right">
-        <li *ng-if="user"><a href="#" [router-link]="['/ProjectNew']">Add project</a></li>
-        <li class="dropdown" *ng-if="user">
+      
+        <li *ngIf="!user"><a href="#" [routerLink]="['/ProjectNew']">Add project</a></li>
+        <li class="dropdown" *ngIf="user">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Settings</a></li>

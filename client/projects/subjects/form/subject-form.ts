@@ -1,6 +1,6 @@
 /// <reference path="../../../../typings/angular2-meteor.d.ts" />
-import {Component, View, Input, Output, EventEmitter, CORE_DIRECTIVES} from 'angular2/angular2';
-import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from 'angular2/angular2';
+import {Component, View, Input, Output, EventEmitter} from 'angular2/core';
+import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from 'angular2/common';
 import {RouteParams, Router} from 'angular2/router';
 import {Subjects} from '../../../../collections/subjects';
 import {Projects} from '../../../../collections/projects';
@@ -10,7 +10,7 @@ import {Projects} from '../../../../collections/projects';
 })
 @View({
     templateUrl: 'client/projects/subjects/form/subject-form.html',
-    directives: [CORE_DIRECTIVES]
+    directives: [FORM_DIRECTIVES]
 })
 export class SubjectForm {
     @Input() template;

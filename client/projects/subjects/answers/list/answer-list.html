@@ -1,7 +1,7 @@
 <ul class="list-group">
-<li *ng-if="answers" class="list-group-item">JEST = {{answers}}</li>
-<li *ng-if="!answers" class="list-group-item">NIE MAJEST</li>
-    <li *ng-for="#answer of answers" class="list-group-item" >
+<li *ngIf="answers" class="list-group-item">JEST = {{answers}}</li>
+<li *ngIf="!answers" class="list-group-item">NIE MA</li>
+    <li *ngFor="#answer of answers" class="list-group-item" >
           {{answer.description}}
     </li>
 </ul>

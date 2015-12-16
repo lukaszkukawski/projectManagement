@@ -1,6 +1,6 @@
 /// <reference path="../../../../typings/angular2-meteor.d.ts" />
-import {Component, View} from 'angular2/angular2';
-import {FORM_DIRECTIVES, FormBuilder, Control, ControlGroup, Validators} from 'angular2/angular2';
+import {Component, View} from 'angular2/core';
+import {FORM_DIRECTIVES, FormBuilder, Control, ControlGroup, Validators} from 'angular2/common';
 import {Projects} from '../../../../collections/projects';
 import {RouteParams, RouterLink} from 'angular2/router';
 import {MeteorComponent} from 'angular2-meteor';
@@ -26,10 +26,10 @@ export class MemberForm extends MeteorComponent {
     addMember(form) {
         if (this.memberForm.valid){
             console.debug("added member");
-            Projects.update(this.projectId, {
+            Meteor.call('projectUpdate', this.projectId, {
                 $push: {
-                    members : {
-                        status : 1,
+                    members: {
+                        status: 1,
                         email: form.email
                     }
                 }
