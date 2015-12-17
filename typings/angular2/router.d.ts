@@ -1,4 +1,4 @@
-// Type definitions for Angular v2.0.0-local_sha.cf3ce17
+// Type definitions for Angular v2.0.0-local_sha.aaf41fc
 // Project: http://angular.io/
 // Definitions by: angular team <https://github.com/angular/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -13,7 +13,7 @@
 // If you don't have them installed you can install them using TSD
 // https://github.com/DefinitelyTyped/tsd
 
-///<reference path="./core.d.ts"/>
+///<reference path="./angular2.d.ts"/>
 
 
 
@@ -68,7 +68,7 @@ declare module ngRouter {
     auxRouter(hostComponent: any): Router;
     
     /**
-     * Register an outlet to be notified of primary route changes.
+     * Register an outlet to notified of primary route changes.
      * 
      * You probably don't need to use this unless you're writing a reusable component.
      */
@@ -90,7 +90,7 @@ declare module ngRouter {
     /**
      * Dynamically update the routing configuration and trigger a navigation.
      * 
-     * ### Usage
+     * ##Usage
      * 
      * ```
      * router.config([
@@ -105,7 +105,7 @@ declare module ngRouter {
      * Navigate based on the provided Route Link DSL. It's preferred to navigate with this method
      * over `navigateByUrl`.
      * 
-     * ### Usage
+     * ##Usage
      * 
      * This method takes an array representing the Route Link DSL:
      * ```
@@ -157,7 +157,8 @@ declare module ngRouter {
     renavigate(): Promise<any>;
     
     /**
-     * Generate an `Instruction` based on the provided Route Link DSL.
+     * Generate a URL from a component name and optional map of parameters. The URL is relative to the
+     * app's base href.
      */
     generate(linkParams: any[]): Instruction;
     
@@ -175,26 +176,26 @@ declare module ngRouter {
    */
   class RouterOutlet {
     
-    constructor(_elementRef: core.ElementRef, _loader: core.DynamicComponentLoader, _parentRouter:Router, nameAttr: string);
+    constructor(_elementRef: ng.ElementRef, _loader: ng.DynamicComponentLoader, _parentRouter:Router, nameAttr: string);
     
     name: string;
     
     /**
      * Called by the Router to instantiate a new component during the commit phase of a navigation.
-     * This method in turn is responsible for calling the `routerOnActivate` hook of its child.
+     * This method in turn is responsible for calling the `onActivate` hook of its child.
      */
     activate(nextInstruction: ComponentInstruction): Promise<any>;
     
     /**
      * Called by the {@link Router} during the commit phase of a navigation when an outlet
      * reuses a component between different routes.
-     * This method in turn is responsible for calling the `routerOnReuse` hook of its child.
+     * This method in turn is responsible for calling the `onReuse` hook of its child.
      */
     reuse(nextInstruction: ComponentInstruction): Promise<any>;
     
     /**
      * Called by the {@link Router} when an outlet disposes of a component's contents.
-     * This method in turn is responsible for calling the `routerOnDeactivate` hook of its child.
+     * This method in turn is responsible for calling the `onDeactivate` hook of its child.
      */
     deactivate(nextInstruction: ComponentInstruction): Promise<any>;
     
@@ -203,22 +204,22 @@ declare module ngRouter {
      * 
      * If this resolves to `false`, the given navigation is cancelled.
      * 
-     * This method delegates to the child component's `routerCanDeactivate` hook if it exists,
+     * This method delegates to the child component's `canDeactivate` hook if it exists,
      * and otherwise resolves to true.
      */
-    routerCanDeactivate(nextInstruction: ComponentInstruction): Promise<boolean>;
+    canDeactivate(nextInstruction: ComponentInstruction): Promise<boolean>;
     
     /**
      * Called by the {@link Router} during recognition phase of a navigation.
      * 
-     * If the new child component has a different core.Type than the existing child component,
+     * If the new child component has a different ng.Type than the existing child component,
      * this will resolve to `false`. You can't reuse an old component when the new component
-     * is of a different core.Type.
+     * is of a different ng.Type.
      * 
-     * Otherwise, this method delegates to the child component's `routerCanReuse` hook if it exists,
+     * Otherwise, this method delegates to the child component's `canReuse` hook if it exists,
      * or resolves to true if the hook is not present.
      */
-    routerCanReuse(nextInstruction: ComponentInstruction): Promise<boolean>;
+    canReuse(nextInstruction: ComponentInstruction): Promise<boolean>;
     
   }
 
@@ -238,7 +239,7 @@ declare module ngRouter {
    * When linking to this `User` route, you can write:
    * 
    * ```
-   * <a [routerLink]="['./User']">link to user component</a>
+   * <a [router-link]="['./User']">link to user component</a>
    * ```
    * 
    * RouterLink expects the value to be an array of route names, followed by the params
@@ -257,8 +258,6 @@ declare module ngRouter {
     constructor(_router: Router, _location: Location);
     
     visibleHref: string;
-    
-    target: string;
     
     isRouteActive: boolean;
     
@@ -314,7 +313,7 @@ declare module ngRouter {
    * 
    * You can inject `RouteData` into the constructor of a component to use it.
    * 
-   * ### Example
+   * ## Example
    * 
    * ```
    * import {bootstrap, Component, View} from 'angular2/angular2';
@@ -351,45 +350,11 @@ declare module ngRouter {
 
     
   /**
-   * `PlatformLocation` encapsulates all of the direct calls to platform APIs.
-   * This class should not be used directly by an application developer. Instead, use
-   * {@link Location}.
-   */
-  class PlatformLocation {
-    
-    constructor();
-    
-    getBaseHrefFromDOM(): string;
-    
-    onPopState(fn: EventListener): void;
-    
-    onHashChange(fn: EventListener): void;
-    
-    pathname: string;
-    
-    search: string;
-    
-    hash: string;
-    
-    pushState(state: any, title: string, url: string): void;
-    
-    replaceState(state: any, title: string, url: string): void;
-    
-    forward(): void;
-    
-    back(): void;
-    
-  }
-
-    
-  /**
    * The RouteRegistry holds route configurations for each component in an Angular app.
    * It is responsible for creating Instructions from URLs, and generating URLs based on route and
    * parameters.
    */
   class RouteRegistry {
-    
-    constructor(_rootComponent: core.Type);
     
     /**
      * Given a component and a configuration object, add the route to this registry
@@ -405,56 +370,22 @@ declare module ngRouter {
      * Given a URL and a parent component, return the most specific instruction for navigating
      * the application into the state specified by the url
      */
-    recognize(url: string, ancestorInstructions: Instruction[]): Promise<Instruction>;
+    recognize(url: string, parentComponent: any): Promise<Instruction>;
     
     /**
      * Given a normalized list with component names and params like: `['user', {id: 3 }]`
      * generates a url with a leading slash relative to the provided `parentComponent`.
-     * 
-     * If the optional param `_aux` is `true`, then we generate starting at an auxiliary
-     * route boundary.
      */
-    generate(linkParams: any[], ancestorInstructions: Instruction[], _aux?: any): Instruction;
+    generate(linkParams: any[], parentComponent: any): Instruction;
     
     hasRoute(name: string, parentComponent: any): boolean;
-    
-    generateDefault(componentCursor: core.Type): Instruction;
     
   }
 
     
   /**
-   * Token used to bind the component with the top-level {@link RouteConfig}s for the
-   * application.
-   * 
-   * ### Example ([live demo](http://plnkr.co/edit/iRUP8B5OUbxCWQ3AcIDm))
-   * 
-   * ```
-   * import {Component} from 'angular2/angular2';
-   * import {
-   *   ROUTER_DIRECTIVES,
-   *   ROUTER_PROVIDERS,
-   *   RouteConfig
-   * } from 'angular2/router';
-   * 
-   * @Component({directives: [ROUTER_DIRECTIVES]})
-   * @RouteConfig([
-   *  {...},
-   * ])
-   * class AppCmp {
-   *   // ...
-   * }
-   * 
-   * bootstrap(AppCmp, [ROUTER_PROVIDERS]);
-   * ```
-   */
-  let ROUTER_PRIMARY_COMPONENT: OpaqueToken;
-  
-
-    
-  /**
    * `LocationStrategy` is responsible for representing and reading route state
-   * from the browser's URL. Angular provides two strategies:
+   * from the the browser's URL. Angular provides two strategies:
    * {@link HashLocationStrategy} (default) and {@link PathLocationStrategy}.
    * 
    * This is used under the hood of the {@link Location} service.
@@ -476,8 +407,6 @@ declare module ngRouter {
     
     pushState(state: any, title: string, url: string, queryParams: string): void;
     
-    replaceState(state: any, title: string, url: string, queryParams: string): void;
-    
     forward(): void;
     
     back(): void;
@@ -487,39 +416,6 @@ declare module ngRouter {
     getBaseHref(): string;
     
   }
-
-    
-  /**
-   * The `APP_BASE_HREF` token represents the base href to be used with the
-   * {@link PathLocationStrategy}.
-   * 
-   * If you're using {@link PathLocationStrategy}, you must provide a provider to a string
-   * representing the URL prefix that should be preserved when generating and recognizing
-   * URLs.
-   * 
-   * ### Example
-   * 
-   * ```
-   * import {Component} from 'angular2/angular2';
-   * import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, RouteConfig} from 'angular2/router';
-   * 
-   * @Component({directives: [ROUTER_DIRECTIVES]})
-   * @RouteConfig([
-   *  {...},
-   * ])
-   * class AppCmp {
-   *   // ...
-   * }
-   * 
-   * bootstrap(AppCmp, [
-   *   ROUTER_PROVIDERS,
-   *   PathLocationStrategy,
-   *   provide(APP_BASE_HREF, {useValue: '/my/app'})
-   * ]);
-   * ```
-   */
-  let APP_BASE_HREF: OpaqueToken;
-  
 
     
   /**
@@ -534,14 +430,12 @@ declare module ngRouter {
    * ### Example
    * 
    * ```
-   * import {Component, provide} from 'angular2/angular2';
+   * import {Component, View} from 'angular2/angular2';
    * import {
    *   ROUTER_DIRECTIVES,
    *   ROUTER_PROVIDERS,
    *   RouteConfig,
-   *   Location,
-   *   LocationStrategy,
-   *   HashLocationStrategy
+   *   Location
    * } from 'angular2/router';
    * 
    * @Component({directives: [ROUTER_DIRECTIVES]})
@@ -554,15 +448,12 @@ declare module ngRouter {
    *   }
    * }
    * 
-   * bootstrap(AppCmp, [
-   *   ROUTER_PROVIDERS,
-   *   provide(LocationStrategy, {useClass: HashLocationStrategy})
-   * ]);
+   * bootstrap(AppCmp, [ROUTER_PROVIDERS]);
    * ```
    */
   class HashLocationStrategy extends LocationStrategy {
     
-    constructor(_platformLocation: PlatformLocation, _baseHref?: string);
+    constructor();
     
     onPopState(fn: EventListener): void;
     
@@ -573,8 +464,6 @@ declare module ngRouter {
     prepareExternalUrl(internal: string): string;
     
     pushState(state: any, title: string, path: string, queryParams: string): void;
-    
-    replaceState(state: any, title: string, path: string, queryParams: string): void;
     
     forward(): void;
     
@@ -630,7 +519,7 @@ declare module ngRouter {
    */
   class PathLocationStrategy extends LocationStrategy {
     
-    constructor(_platformLocation: PlatformLocation, href?: string);
+    constructor();
     
     onPopState(fn: EventListener): void;
     
@@ -641,8 +530,6 @@ declare module ngRouter {
     path(): string;
     
     pushState(state: any, title: string, url: string, queryParams: string): void;
-    
-    replaceState(state: any, title: string, url: string, queryParams: string): void;
     
     forward(): void;
     
@@ -693,7 +580,7 @@ declare module ngRouter {
    */
   class Location {
     
-    constructor(platformStrategy: LocationStrategy);
+    constructor(platformStrategy: LocationStrategy, href?: string);
     
     platformStrategy: LocationStrategy;
     
@@ -723,12 +610,6 @@ declare module ngRouter {
     go(path: string, query?: string): void;
     
     /**
-     * Changes the browsers URL to the normalized version of the given URL, and replaces
-     * the top item on the platform's history stack.
-     */
-    replaceState(path: string, query?: string): void;
-    
-    /**
      * Navigates forward in the platform's history.
      */
     forward(): void;
@@ -747,61 +628,90 @@ declare module ngRouter {
 
     
   /**
-   * Defines route lifecycle method `routerOnActivate`, which is called by the router at the end of a
+   * The `APP_BASE_HREF` token represents the base href to be used with the
+   * {@link PathLocationStrategy}.
+   * 
+   * If you're using {@link PathLocationStrategy}, you must provide a provider to a string
+   * representing the URL prefix that should be preserved when generating and recognizing
+   * URLs.
+   * 
+   * ### Example
+   * 
+   * ```
+   * import {Component} from 'angular2/angular2';
+   * import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, RouteConfig} from 'angular2/router';
+   * 
+   * @Component({directives: [ROUTER_DIRECTIVES]})
+   * @RouteConfig([
+   *  {...},
+   * ])
+   * class AppCmp {
+   *   // ...
+   * }
+   * 
+   * bootstrap(AppCmp, [
+   *   ROUTER_PROVIDERS,
+   *   PathLocationStrategy,
+   *   provide(APP_BASE_HREF, {useValue: '/my/app'})
+   * ]);
+   * ```
+   */
+  let APP_BASE_HREF: OpaqueToken;
+  
+
+    
+  /**
+   * Defines route lifecycle method `onActivate`, which is called by the router at the end of a
    * successful route navigation.
    * 
    * For a single component's navigation, only one of either {@link OnActivate} or {@link OnReuse}
    * will be called depending on the result of {@link CanReuse}.
    * 
-   * The `routerOnActivate` hook is called with two {@link ComponentInstruction}s as parameters, the
-   * first
+   * The `onActivate` hook is called with two {@link ComponentInstruction}s as parameters, the first
    * representing the current route being navigated to, and the second parameter representing the
    * previous route or `null`.
    * 
-   * If `routerOnActivate` returns a promise, the route change will wait until the promise settles to
+   * If `onActivate` returns a promise, the route change will wait until the promise settles to
    * instantiate and activate child components.
    * 
    * ### Example
-   * {@example router/ts/on_activate/on_activate_example.ts region='routerOnActivate'}
+   * {@example router/ts/on_activate/on_activate_example.ts region='onActivate'}
    */
   interface OnActivate {
     
-    routerOnActivate(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
+    onActivate(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
     
   }
 
     
   /**
-   * Defines route lifecycle method `routerOnDeactivate`, which is called by the router before
-   * destroying
+   * Defines route lifecycle method `onDeactivate`, which is called by the router before destroying
    * a component as part of a route change.
    * 
-   * The `routerOnDeactivate` hook is called with two {@link ComponentInstruction}s as parameters, the
-   * first
+   * The `onDeactivate` hook is called with two {@link ComponentInstruction}s as parameters, the first
    * representing the current route being navigated to, and the second parameter representing the
    * previous route.
    * 
-   * If `routerOnDeactivate` returns a promise, the route change will wait until the promise settles.
+   * If `onDeactivate` returns a promise, the route change will wait until the promise settles.
    * 
    * ### Example
-   * {@example router/ts/on_deactivate/on_deactivate_example.ts region='routerOnDeactivate'}
+   * {@example router/ts/on_deactivate/on_deactivate_example.ts region='onDeactivate'}
    */
   interface OnDeactivate {
     
-    routerOnDeactivate(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
+    onDeactivate(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
     
   }
 
     
   /**
-   * Defines route lifecycle method `routerOnReuse`, which is called by the router at the end of a
+   * Defines route lifecycle method `onReuse`, which is called by the router at the end of a
    * successful route navigation when {@link CanReuse} is implemented and returns or resolves to true.
    * 
    * For a single component's navigation, only one of either {@link OnActivate} or {@link OnReuse}
    * will be called, depending on the result of {@link CanReuse}.
    * 
-   * The `routerOnReuse` hook is called with two {@link ComponentInstruction}s as parameters, the
-   * first
+   * The `onReuse` hook is called with two {@link ComponentInstruction}s as parameters, the first
    * representing the current route being navigated to, and the second parameter representing the
    * previous route or `null`.
    * 
@@ -810,60 +720,56 @@ declare module ngRouter {
    */
   interface OnReuse {
     
-    routerOnReuse(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
+    onReuse(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
     
   }
 
     
   /**
-   * Defines route lifecycle method `routerCanDeactivate`, which is called by the router to determine
+   * Defines route lifecycle method `canDeactivate`, which is called by the router to determine
    * if a component can be removed as part of a navigation.
    * 
-   * The `routerCanDeactivate` hook is called with two {@link ComponentInstruction}s as parameters,
-   * the
+   * The `canDeactivate` hook is called with two {@link ComponentInstruction}s as parameters, the
    * first representing the current route being navigated to, and the second parameter
    * representing the previous route.
    * 
-   * If `routerCanDeactivate` returns or resolves to `false`, the navigation is cancelled. If it
-   * returns or
+   * If `canDeactivate` returns or resolves to `false`, the navigation is cancelled. If it returns or
    * resolves to `true`, then the navigation continues, and the component will be deactivated
    * (the {@link OnDeactivate} hook will be run) and removed.
    * 
-   * If `routerCanDeactivate` throws or rejects, the navigation is also cancelled.
+   * If `canDeactivate` throws or rejects, the navigation is also cancelled.
    * 
    * ### Example
-   * {@example router/ts/can_deactivate/can_deactivate_example.ts region='routerCanDeactivate'}
+   * {@example router/ts/can_deactivate/can_deactivate_example.ts region='canDeactivate'}
    */
   interface CanDeactivate {
     
-    routerCanDeactivate(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
+    canDeactivate(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
     
   }
 
     
   /**
-   * Defines route lifecycle method `routerCanReuse`, which is called by the router to determine
-   * whether a
+   * Defines route lifecycle method `canReuse`, which is called by the router to determine whether a
    * component should be reused across routes, or whether to destroy and instantiate a new component.
    * 
-   * The `routerCanReuse` hook is called with two {@link ComponentInstruction}s as parameters, the
-   * first
+   * The `canReuse` hook is called with two {@link ComponentInstruction}s as parameters, the first
    * representing the current route being navigated to, and the second parameter representing the
    * previous route.
    * 
-   * If `routerCanReuse` returns or resolves to `true`, the component instance will be reused and the
-   * {@link OnDeactivate} hook will be run. If `routerCanReuse` returns or resolves to `false`, a new
+   * If `canReuse` returns or resolves to `true`, the component instance will be reused and the
+   * {@link OnDeactivate} hook will be run. If `canReuse` returns or resolves to `false`, a new
    * component will be instantiated, and the existing component will be deactivated and removed as
    * part of the navigation.
    * 
-   * If `routerCanReuse` throws or rejects, the navigation will be cancelled.
+   * If `canReuse` throws or rejects, the navigation will be cancelled.
    * 
    * ### Example
    * {@example router/ts/reuse/reuse_example.ts region='reuseCmp'}
    */
   interface CanReuse {
     
-    routerCanReuse(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
+    canReuse(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
     
   }
 
@@ -926,7 +832,9 @@ declare module ngRouter {
    * bootstrap(AppCmp, ROUTER_PROVIDERS);
    * ```
    */
-  abstract class Instruction {
+  class Instruction {
+    
+    constructor(component: ComponentInstruction, child: Instruction, auxInstruction: {[key: string]: Instruction});
     
     component: ComponentInstruction;
     
@@ -934,33 +842,11 @@ declare module ngRouter {
     
     auxInstruction: {[key: string]: Instruction};
     
-    urlPath: string;
-    
-    urlParams: string[];
-    
-    specificity: number;
-    
-    resolveComponent(): Promise<ComponentInstruction>;
-    
-    /**
-     * converts the instruction into a URL string
-     */
-    toRootUrl(): string;
-    
-    toUrlQuery(): string;
-    
     /**
      * Returns a new instruction that shares the state of the existing instruction, but with
      * the given child {@link Instruction} replacing the existing child.
      */
     replaceChild(child: Instruction): Instruction;
-    
-    /**
-     * If the final URL for the instruction is ``
-     */
-    toUrlPath(): string;
-    
-    toLinkUrl(): string;
     
   }
 
@@ -973,30 +859,50 @@ declare module ngRouter {
    * to route lifecycle hooks, like {@link CanActivate}.
    * 
    * `ComponentInstruction`s are [https://en.wikipedia.org/wiki/Hash_consing](hash consed). You should
-   * never construct one yourself with "new." Instead, rely on {@link Router/RouteRecognizer} to
+   * never construct one yourself with "new." Instead, rely on {@link Router/PathRecognizer} to
    * construct `ComponentInstruction`s.
    * 
    * You should not modify this object. It should be treated as immutable.
    */
-  class ComponentInstruction {
-    
-    constructor(urlPath: string, urlParams: string[], data: RouteData, componentType: any, terminal: boolean, specificity: number, params?: {[key: string]: any});
+  abstract class ComponentInstruction {
     
     reuse: boolean;
-    
-    routeData: RouteData;
     
     urlPath: string;
     
     urlParams: string[];
     
+    params: {[key: string]: any};
+    
+    /**
+     * Returns the component type of the represented route, or `null` if this instruction
+     * hasn't been resolved.
+     */
     componentType: any;
     
-    terminal: boolean;
+    /**
+     * Returns a promise that will resolve to component type of the represented route.
+     * If this instruction references an {@link AsyncRoute}, the `loader` function of that route
+     * will run.
+     */
+    resolveComponentType(): Promise<ng.Type>;
     
-    specificity: number;
+    /**
+     * Returns the specificity of the route associated with this `Instruction`.
+     */
+    specificity: any;
     
-    params: {[key: string]: any};
+    /**
+     * Returns `true` if the component type of this instruction has no child {@link RouteConfig},
+     * or `false` if it does.
+     */
+    terminal: any;
+    
+    /**
+     * Returns the route data of the given route that was specified in the {@link RouteDefinition},
+     * or an empty object if no route data was specified.
+     */
+    routeData: RouteData;
     
   }
 
@@ -1029,6 +935,35 @@ declare module ngRouter {
     toString(): string;
     
   }
+
+    
+  /**
+   * Token used to bind the component with the top-level {@link RouteConfig}s for the
+   * application.
+   * 
+   * ### Example ([live demo](http://plnkr.co/edit/iRUP8B5OUbxCWQ3AcIDm))
+   * 
+   * ```
+   * import {Component} from 'angular2/angular2';
+   * import {
+   *   ROUTER_DIRECTIVES,
+   *   ROUTER_PROVIDERS,
+   *   RouteConfig
+   * } from 'angular2/router';
+   * 
+   * @Component({directives: [ROUTER_DIRECTIVES]})
+   * @RouteConfig([
+   *  {...},
+   * ])
+   * class AppCmp {
+   *   // ...
+   * }
+   * 
+   * bootstrap(AppCmp, [ROUTER_PROVIDERS]);
+   * ```
+   */
+  let ROUTER_PRIMARY_COMPONENT: OpaqueToken;
+  
 
     
   /**
@@ -1098,86 +1033,72 @@ declare module ngRouter {
    * It has the following properties:
    * - `path` is a string that uses the route matcher DSL.
    * - `component` a component type.
-   * - `name` is an optional `CamelCase` string representing the name of the route.
+   * - `as` is an optional `CamelCase` string representing the name of the route.
    * - `data` is an optional property of any type representing arbitrary route metadata for the given
    * route. It is injectable via {@link RouteData}.
-   * - `useAsDefault` is a boolean value. If `true`, the child route will be navigated to if no child
-   * route is specified during the navigation.
    * 
    * ### Example
    * ```
    * import {RouteConfig} from 'angular2/router';
    * 
    * @RouteConfig([
-   *   {path: '/home', component: HomeCmp, name: 'HomeCmp' }
+   *   {path: '/home', component: HomeCmp, as: 'HomeCmp' }
    * ])
    * class MyApp {}
    * ```
    */
   class Route implements RouteDefinition {
     
-    constructor({path, component, name, data, useAsDefault}: {
-        path: string,
-        component: core.Type, name?: string, data?: {[key: string]: any}, useAsDefault?: boolean
-      });
+    constructor({path, component, as,
+                   data}: {path: string, component: ng.Type, as?: string, data?: {[key: string]: any}});
     
     data: {[key: string]: any};
     
     path: string;
     
-    component: core.Type;
+    component: ng.Type;
     
-    name: string;
-    
-    useAsDefault: boolean;
-    
-    aux: string;
+    as: string;
     
     loader: Function;
     
-    redirectTo: any[];
+    redirectTo: string;
     
   }
 
     
   /**
-   * `Redirect` is a type of {@link RouteDefinition} used to route a path to a canonical route.
+   * `Redirect` is a type of {@link RouteDefinition} used to route a path to an asynchronously loaded
+   * component.
    * 
    * It has the following properties:
    * - `path` is a string that uses the route matcher DSL.
-   * - `redirectTo` is an array representing the link DSL.
-   * 
-   * Note that redirects **do not** affect how links are generated. For that, see the `useAsDefault`
-   * option.
+   * - `redirectTo` is a string representing the new URL to be matched against.
    * 
    * ### Example
    * ```
    * import {RouteConfig} from 'angular2/router';
    * 
    * @RouteConfig([
-   *   {path: '/', redirectTo: ['/Home'] },
-   *   {path: '/home', component: HomeCmp, name: 'Home'}
+   *   {path: '/', redirectTo: '/home'},
+   *   {path: '/home', component: HomeCmp}
    * ])
    * class MyApp {}
    * ```
    */
   class Redirect implements RouteDefinition {
     
-    constructor({path, redirectTo}: {path: string, redirectTo: any[]});
+    constructor({path, redirectTo}: {path: string, redirectTo: string});
     
     path: string;
     
-    redirectTo: any[];
+    redirectTo: string;
     
-    name: string;
+    as: string;
     
     loader: Function;
     
     data: any;
-    
-    aux: string;
-    
-    useAsDefault: boolean;
     
   }
 
@@ -1188,7 +1109,7 @@ declare module ngRouter {
    * It takes an object with the following properties:
    * - `path` is a string that uses the route matcher DSL.
    * - `component` a component type.
-   * - `name` is an optional `CamelCase` string representing the name of the route.
+   * - `as` is an optional `CamelCase` string representing the name of the route.
    * - `data` is an optional property of any type representing arbitrary route metadata for the given
    * route. It is injectable via {@link RouteData}.
    * 
@@ -1204,23 +1125,19 @@ declare module ngRouter {
    */
   class AuxRoute implements RouteDefinition {
     
-    constructor({path, component, name}: {path: string, component: core.Type, name?: string});
+    constructor({path, component, as}: {path: string, component: ng.Type, as?: string});
     
     data: {[key: string]: any};
     
     path: string;
     
-    component: core.Type;
+    component: ng.Type;
     
-    name: string;
-    
-    aux: string;
+    as: string;
     
     loader: Function;
     
-    redirectTo: any[];
-    
-    useAsDefault: boolean;
+    redirectTo: string;
     
   }
 
@@ -1232,28 +1149,24 @@ declare module ngRouter {
    * It has the following properties:
    * - `path` is a string that uses the route matcher DSL.
    * - `loader` is a function that returns a promise that resolves to a component.
-   * - `name` is an optional `CamelCase` string representing the name of the route.
+   * - `as` is an optional `CamelCase` string representing the name of the route.
    * - `data` is an optional property of any type representing arbitrary route metadata for the given
    * route. It is injectable via {@link RouteData}.
-   * - `useAsDefault` is a boolean value. If `true`, the child route will be navigated to if no child
-   * route is specified during the navigation.
    * 
    * ### Example
    * ```
    * import {RouteConfig} from 'angular2/router';
    * 
    * @RouteConfig([
-   *   {path: '/home', loader: () => Promise.resolve(MyLoadedCmp), name: 'MyLoadedCmp'}
+   *   {path: '/home', loader: () => Promise.resolve(MyLoadedCmp), as: 'MyLoadedCmp'}
    * ])
    * class MyApp {}
    * ```
    */
   class AsyncRoute implements RouteDefinition {
     
-    constructor({path, loader, name, data, useAsDefault}: {
-        path: string,
-        loader: Function, name?: string, data?: {[key: string]: any}, useAsDefault?: boolean
-      });
+    constructor({path, loader, as,
+                   data}: {path: string, loader: Function, as?: string, data?: {[key: string]: any}});
     
     data: {[key: string]: any};
     
@@ -1261,11 +1174,7 @@ declare module ngRouter {
     
     loader: Function;
     
-    name: string;
-    
-    useAsDefault: boolean;
-    
-    aux: string;
+    as: string;
     
   }
 
@@ -1274,32 +1183,26 @@ declare module ngRouter {
    * `RouteDefinition` defines a route within a {@link RouteConfig} decorator.
    * 
    * Supported keys:
-   * - `path` or `aux` (requires exactly one of these)
+   * - `path` (required)
    * - `component`, `loader`,  `redirectTo` (requires exactly one of these)
-   * - `name` or `as` (optional) (requires exactly one of these)
+   * - `as` (optional)
    * - `data` (optional)
    * 
    * See also {@link Route}, {@link AsyncRoute}, {@link AuxRoute}, and {@link Redirect}.
    */
   interface RouteDefinition {
     
-    path?: string;
+    path: string;
     
-    aux?: string;
-    
-    component?: core.Type | ComponentDefinition;
+    component?: ng.Type | ComponentDefinition;
     
     loader?: Function;
     
-    redirectTo?: any[];
+    redirectTo?: string;
     
     as?: string;
     
-    name?: string;
-    
     data?: any;
-    
-    useAsDefault?: boolean;
     
   }
 
@@ -1314,7 +1217,7 @@ declare module ngRouter {
     
     loader?: Function;
     
-    component?: core.Type;
+    component?: ng.Type;
     
   }
 
