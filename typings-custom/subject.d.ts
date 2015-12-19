@@ -6,5 +6,5 @@ declare type Subject = {
     projectId: string,
     response: number,
     owner: string,
-    properties: Property[]
+    properties: PropertySubject[]
 }

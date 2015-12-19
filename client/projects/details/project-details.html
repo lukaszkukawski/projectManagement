@@ -20,7 +20,7 @@
 -->
 
 <div class="panel panel-default clearfix" [ngSwitch]="currentTemplate">
-    <template [ngSwitchWhen]="'newTask'"><subject-form (complete)="onCompletedAddedSubject($event)"></subject-form></template>
+    <template [ngSwitchWhen]="'newTask'"><subject-form (complete)="onCompletedAddedSubject($event)" [projectId]="projectId"></subject-form></template>
     <template ngSwitchDefault>
       <button (click)="showFormSubject()" class="col-xs-12 btn btn-info">Add new Task</button>
     </template>

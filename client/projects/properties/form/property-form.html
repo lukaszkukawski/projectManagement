@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form class="form-horizontal" [ngFormModel]="propertyForm" #f="ngForm" (submit)="addProperty(f.value)">
+          <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="name" ngControl="name" #name="ngForm">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="img" class="col-sm-2 control-label">Type</label>
+            <div class="col-sm-10">
+              <select class="form-controll" id="type" ngControl="type" #name="ngForm">
+                <option *ngFor="#type of typeField" value="{{type.symbol}}">{{type.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="placeholder" class="col-sm-2 control-label">Placeholder</label>
+            <div class="col-sm-10">
+              <textarea id="placeholder" class="form-control" ngControl="placeholder" #description="ngForm"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="values" class="col-sm-2 control-label">Values[;]</label>
+            <div class="col-sm-10">
+              <textarea id="values" class="form-control" ngControl="values" #description="ngForm"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-5">
+              <button type="submit" class="btn btn-default">Add</button>
+            </div>
+            <div class="col-sm-5">
+              <button type="button" (click)="cancelAdd()" class="btn btn-danger">Cancel</button>
+            </div>
+          </div>
+        </form>
+    </div>
+</div>

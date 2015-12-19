@@ -9,7 +9,6 @@ import {MembersList} from '../members/list/members-list';
 import {SubjectList} from '../subjects/list/subject-list';
 import {SubjectForm} from '../subjects/form/subject-form';
 
-
 @Component({
     selector: 'project-details'
 })
@@ -21,8 +20,10 @@ export class ProjectDetails extends MeteorComponent{
     project: Project;
     projectId: string;
     currentTemplate: string = "";
+    properties: Mongo.Cursor<Property>;
     constructor(params: RouteParams) {
         super();
+        console.log("Project Details construct");
         this.projectId = params.get('projectId');
         this.subscribe('project', () => {
             this.project = Projects.findOne(this.projectId);

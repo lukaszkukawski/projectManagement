@@ -1,0 +1,9 @@
+<div *ngFor="#property of properties">
+    <label for="description" class="col-sm-2 control-label">{{property.name}}</label>
+    <div class="col-sm-9">
+      <input type="text" value="" name="property_{{property._id}}"/>
+    </div>
+    <div class="col-sm-1">
+          <button type="button" class="btn btn-danger" (click)="deleteProperty(property)"><i class="glyphicon glyphicon-remove"></i></button>
+    </div>
+</div>

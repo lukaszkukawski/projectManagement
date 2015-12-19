@@ -1,4 +1,9 @@
 declare type Property ={
-    propertryId: string,
-    value: string
+    _id?: string,
+    type: string,
+    name: string,
+    placeholder: string,
+    values?: string[],
+    projectId: string,
+    owner: string
 }

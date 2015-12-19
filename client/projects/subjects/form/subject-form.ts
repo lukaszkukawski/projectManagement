@@ -1,24 +1,25 @@
 /// <reference path="../../../../typings/angular2-meteor.d.ts" />
-import {Component, View, Input, Output, EventEmitter} from 'angular2/core';
-import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from 'angular2/common';
+import {Component, View, Input, Output, EventEmitter, AfterViewInit} from 'angular2/core';
+import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Control, Validators, NgIf, NgFor, AbstractControl} from 'angular2/common';
 import {RouteParams, Router} from 'angular2/router';
-import {Subjects} from '../../../../collections/subjects';
-import {Projects} from '../../../../collections/projects';
+import {PropertyForm} from '../../properties/form/property-form';
+import {Properties} from '../../../../collections/properties';
+import {PropertyList} from '../../properties/list/property-list';
 
 @Component({
     selector: 'subject-form'
 })
 @View({
     templateUrl: 'client/projects/subjects/form/subject-form.html',
-    directives: [FORM_DIRECTIVES]
+    directives: [FORM_DIRECTIVES, NgIf, PropertyForm, NgFor, PropertyList]
 })
 export class SubjectForm {
     @Input() template;
     @Output() complete = new EventEmitter();
     subjectForm: ControlGroup;
     projectId: string;
+    templateProperty: boolean = false;
     constructor(fb: FormBuilder, params: RouteParams, private router: Router) {
-        console.log('ProjectForm start');
         this.projectId = params.get('projectId');
         this.subjectForm = fb.group({
             title: ['', Validators.required],
@@ -27,6 +28,7 @@ export class SubjectForm {
     }
 
     addSubject(subject) {
+        debugger
         if (this.subjectForm.valid) {
             var _id = Meteor.call('insertSubject', {
                 title: subject.title,
@@ -46,5 +48,17 @@ export class SubjectForm {
 
     cancelAdd(){
         this.complete.next("");
+    }
+
+    addNewProperty() {
+        this.templateProperty = true;
+        console.log('this.templateProperty', this.templateProperty);
+    }
+
+    onCompletedAddedProperty(object) {
+        this.templateProperty = object.templateProperty;
+        if (object.propertyId) {
+            this.subjectForm.addControl("property_" + object.propertyId, new Control());
+        }
     }
 }
