@@ -28,15 +28,28 @@ export class SubjectForm {
     }
 
     addSubject(subject) {
-        debugger
+        console.log('this.subjectForm', this.subjectForm);
         if (this.subjectForm.valid) {
-            var _id = Meteor.call('insertSubject', {
-                title: subject.title,
-                description: subject.description,
+            var newSubject = {
                 owner: Meteor.userId(),
                 projectId: this.projectId,
                 response: 0
+            };
+            _.each(this.subjectForm.controls, function(obj, key) {
+                var value = obj._value;
+                if (key.startsWith('property_')) {
+                    if (typeof newSubject['properties'] === 'undefined') {
+                        newSubject['properties'] = [];
+                    }
+                    newSubject['properties'].push({
+                        id: key.substr(9),
+                        value: value
+                    });
+                } else {
+                    newSubject[key] = value;
+                }
             });
+            var _id = Meteor.call('insertSubject', newSubject);
             Meteor.call('projectIncChildren', this.projectId);
             console.log('EventEmitter change');
             this.complete.next("");
@@ -56,7 +69,10 @@ export class SubjectForm {
     }
 
     onCompletedAddedProperty(object) {
+        console.log('object', object);
+        console.log('this.templateProperty', this.templateProperty);
         this.templateProperty = object.templateProperty;
+        console.log('this.templateProperty', this.templateProperty);
         if (object.propertyId) {
             this.subjectForm.addControl("property_" + object.propertyId, new Control());
         }

@@ -1,3 +1,4 @@
+
 <div class="panel panel-default" *ngIf="project">
   <div class="panel-heading">{{project.name}}</div>
   <div class="panel-body">
@@ -10,7 +11,7 @@
     </div>
   
     <!--{{project.name}}-->
-</div>
+  </div>
 </div>
 
 
@@ -18,14 +19,12 @@
 <!--
 <button class="col-xs-6 btn btn-info" [router-link]="['/SubjectForm', {projectId: projectId}]">Add new Task</button>
 -->
-
 <div class="panel panel-default clearfix" [ngSwitch]="currentTemplate">
     <template [ngSwitchWhen]="'newTask'"><subject-form (complete)="onCompletedAddedSubject($event)" [projectId]="projectId"></subject-form></template>
     <template ngSwitchDefault>
       <button (click)="showFormSubject()" class="col-xs-12 btn btn-info">Add new Task</button>
     </template>
 </div>
-
 
 
 <subject-list></subject-list>
